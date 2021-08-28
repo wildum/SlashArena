@@ -144,24 +144,26 @@ public class Sword : MonoBehaviour
 
         GameObject[] slices = Slicer.Slice(plane, other.gameObject);
 
-        if (gameObject.tag == "Limb")
+        if (other.gameObject.tag == "Limb")
         {
-
+            other.gameObject.GetComponent<MeshFilter>().mesh = slices[1].GetComponent<MeshFilter>().mesh;
+            Destroy(slices[1]);
+            if (other.gameObject.transform.parent != null)
+            {
+                Transform child = other.gameObject.transform.parent.Find("Handle");
+                if (child != null)
+                    EntityDestroyer.DestroyEntity(child.gameObject);
+            }
+            EntityDestroyer.DestroyEntity(slices[0]);
         }
         else
         {
-            Destroy(slices[1]);
+            EntityDestroyer.DestroyEntity(slices[0]);
+            EntityDestroyer.DestroyEntity(slices[1]);
+            Destroy(other.gameObject);
         }
 
-        // here instead of destroying it we could try to set it to one of the slice
-        other.gameObject.GetComponent<MeshFilter>().mesh = slices[1].GetComponent<MeshFilter>().mesh;
-        
-
-        // the other one should be destroyed
-        foreach (GameObject obj in slices)
-            EntityDestroyer.DestroyEntity(obj);
-
-        Rigidbody rigidbody = slices[1].GetComponent<Rigidbody>();
+        Rigidbody rigidbody = slices[0].GetComponent<Rigidbody>();
         Vector3 newNormal = transformedNormal + Vector3.up * _forceAppliedToCut;
         rigidbody.AddForce(newNormal, ForceMode.Impulse);
     }
