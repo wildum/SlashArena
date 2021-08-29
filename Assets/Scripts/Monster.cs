@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -16,23 +17,31 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        if (head == null || body == null)
+        if (isDead())
         {
             destroyAllElements();
         }
     }
 
+    bool isDead()
+    {
+        return head == null || body == null || !(Array.FindIndex(limbs, x => x != null && x.transform.Find("Handle") != null) > -1);
+    }
+
     void destroyAllElements()
     {
-        EntityDestroyer.DestroyEntity(head);
-        EntityDestroyer.DestroyEntity(body);
+        if (head != null)
+            head.AddComponent<EntityDestroyer>();
+        if (body != null)
+            body.AddComponent<EntityDestroyer>();
         foreach (GameObject limb in limbs)
         {
             foreach (Transform child in limb.transform)
             {
-                EntityDestroyer.DestroyEntity(child.gameObject);
+                if (child.gameObject != null)
+                    child.gameObject.AddComponent<EntityDestroyer>();
             }
         }
-        EntityDestroyer.DestroyEntity(gameObject, 6);
+        Destroy(gameObject, 6);
     }
 }

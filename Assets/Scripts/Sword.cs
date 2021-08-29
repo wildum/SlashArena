@@ -152,14 +152,14 @@ public class Sword : MonoBehaviour
             {
                 Transform child = other.gameObject.transform.parent.Find("Handle");
                 if (child != null)
-                    EntityDestroyer.DestroyEntity(child.gameObject);
+                    child.gameObject.AddComponent<EntityDestroyer>();
             }
-            EntityDestroyer.DestroyEntity(slices[0]);
+            slices[0].AddComponent<EntityDestroyer>();
         }
         else
         {
-            EntityDestroyer.DestroyEntity(slices[0]);
-            EntityDestroyer.DestroyEntity(slices[1]);
+            slices[0].AddComponent<EntityDestroyer>();
+            slices[1].AddComponent<EntityDestroyer>();
             Destroy(other.gameObject);
         }
 

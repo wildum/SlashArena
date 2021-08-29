@@ -2,20 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-static class EntityDestroyer
+public class EntityDestroyer : MonoBehaviour
 {
     static Material deadMaterial;
 
-    public static void DestroyEntity(GameObject gameObject, float time = 5)
+    private Renderer rend;
+
+    void Start()
     {
-        if (gameObject == null)
-            return;
         if (deadMaterial == null)
-        {
            deadMaterial = Resources.Load("Materials/Dead", typeof(Material)) as Material;
-        }
         if (gameObject.GetComponent<Renderer>() != null)
-            gameObject.GetComponent<Renderer>().material = deadMaterial;
-        UnityEngine.Object.Destroy(gameObject, time); // assign fadeout script
+        {
+            rend = gameObject.GetComponent<Renderer>();
+            rend.material = deadMaterial;
+            StartCoroutine("fadeOut");
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator fadeOut()
+    {
+        for (float f = 1f; f >= -0.05f; f -= 0.05f)
+        {
+            Color c = rend.material.color;
+            c.a = f;
+            rend.material.color = c;
+            yield return new WaitForSeconds(0.1f);
+        }
+        Destroy(gameObject);
     }
 }
