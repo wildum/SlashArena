@@ -12,9 +12,10 @@ public class EntityDestroyer : MonoBehaviour
     {
         if (deadMaterial == null)
            deadMaterial = Resources.Load("Materials/Dead", typeof(Material)) as Material;
-        if (gameObject.GetComponent<Renderer>() != null)
+
+        rend = gameObject.GetComponent<Renderer>();
+        if (rend != null)
         {
-            rend = gameObject.GetComponent<Renderer>();
             rend.material = deadMaterial;
             StartCoroutine("fadeOut");
         }
@@ -22,16 +23,29 @@ public class EntityDestroyer : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Rigidbody rg = gameObject.GetComponent<Rigidbody>();
+        if (rg != null)
+        {
+            rg.useGravity = true;
+            rg.isKinematic = false;
+        }
+
+        CharacterJoint[] characterJoints = gameObject.GetComponents<CharacterJoint>();
+        foreach (CharacterJoint c in characterJoints)
+        {
+            Destroy(c);
+        }
     }
 
     IEnumerator fadeOut()
     {
-        for (float f = 1f; f >= -0.05f; f -= 0.05f)
+        for (float f = 1f; f >= 0.3f; f -= 0.05f)
         {
             Color c = rend.material.color;
             c.a = f;
             rend.material.color = c;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.4f);
         }
         Destroy(gameObject);
     }

@@ -153,6 +153,15 @@ public class Sword : MonoBehaviour
                 Transform child = other.gameObject.transform.parent.Find("Handle");
                 if (child != null)
                     child.gameObject.AddComponent<EntityDestroyer>();
+                if (other.name == "LimbFirst")
+                {
+                    Transform limbSecond = other.gameObject.transform.parent.Find("LimbSecond");
+                    if (limbSecond != null)
+                        limbSecond.gameObject.AddComponent<EntityDestroyer>();
+                    Transform elbow = other.gameObject.transform.parent.Find("Elbow");
+                    if (elbow != null)
+                        elbow.gameObject.AddComponent<EntityDestroyer>();
+                }
             }
             slices[0].AddComponent<EntityDestroyer>();
         }

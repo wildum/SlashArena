@@ -7,25 +7,35 @@ public class Monster : MonoBehaviour
 {
     public GameObject head;
     public GameObject body;
-    public GameObject[] limbs;
+    public GameObject neck;
+    public GameObject[] arms;
+    public GameObject[] legs;
+
+    private bool startVanishing = false;
+
+    private List<GameObject> limbs = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach(GameObject g in arms)
+            limbs.Add(g);
+        foreach(GameObject g in legs)
+            limbs.Add(g);
     }
 
     void Update()
     {
-        if (isDead())
+        if (isDead() && !startVanishing)
         {
             destroyAllElements();
+            startVanishing = true;
         }
     }
 
     bool isDead()
     {
-        return head == null || body == null || !(Array.FindIndex(limbs, x => x != null && x.transform.Find("Handle") != null) > -1);
+        return head == null || neck == null || body == null || !(limbs.Exists(x => x != null && x.transform.Find("Handle") != null));
     }
 
     void destroyAllElements()
@@ -34,6 +44,8 @@ public class Monster : MonoBehaviour
             head.AddComponent<EntityDestroyer>();
         if (body != null)
             body.AddComponent<EntityDestroyer>();
+        if (neck != null)
+            neck.AddComponent<EntityDestroyer>();
         foreach (GameObject limb in limbs)
         {
             foreach (Transform child in limb.transform)
@@ -42,6 +54,6 @@ public class Monster : MonoBehaviour
                     child.gameObject.AddComponent<EntityDestroyer>();
             }
         }
-        Destroy(gameObject, 6);
+        Destroy(gameObject, 5);
     }
 }
