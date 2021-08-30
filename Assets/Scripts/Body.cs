@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Body : MonoBehaviour
 {
+    const float MAX_HEIGHT = 15;
+
     [SerializeField]
     private Hook leftHook;
 
@@ -27,5 +29,8 @@ public class Body : MonoBehaviour
         {
             rb.useGravity = true;
         }
+        Vector3 pos = transform.position;
+        pos.y = Mathf.Min(pos.y, MAX_HEIGHT);
+        transform.position = pos;
     }
 }
