@@ -14,6 +14,9 @@ public class Hand : MonoBehaviour
     [SerializeField]
     private Rigidbody myBody;
 
+    [SerializeField]
+    private Cable cable;
+
     private ActionBasedController controller;
 
     // Start is called before the first frame update
@@ -36,7 +39,14 @@ public class Hand : MonoBehaviour
     void Update()
     {
         if (!hook.Sent)
+        {
             hook.gameObject.transform.position = transform.position;
+            cable.gameObject.SetActive(false);
+        }
+        else
+        {
+            cable.gameObject.SetActive(true);
+        }
 
         if (hook.Hooked)
         {
