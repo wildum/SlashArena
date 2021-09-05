@@ -63,26 +63,34 @@ public class Monster : MonoBehaviour
         {
             if (targetInRange())
             {
+                rotate();
                 attack();
             }
             else
             {
-                moveRotate();
+                rotate();
+                move();
             }
         }
     }
 
-    void moveRotate()
+    void move()
     {
         Vector3 direction = target.position - transform.position;
-        // can be adjusted here to have it look up or down
         direction.y = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), ROTATION_SPEED*Time.deltaTime);
         float angle = Vector3.Angle(direction, transform.forward);
         if (angle < MOVE_ANGLE && Vector3.Distance(target.position, transform.position) > ATTACK_RANGE)
         {
             this.transform.Translate(0,0,MOVE_SPEED*Time.deltaTime);
         }
+    }
+
+    void rotate()
+    {
+        Vector3 direction = target.position - transform.position;
+        // can be adjusted here to have it look up or down
+        direction.y = 0;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), ROTATION_SPEED*Time.deltaTime);
     }
 
     void attack()

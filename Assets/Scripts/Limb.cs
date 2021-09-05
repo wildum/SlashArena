@@ -4,11 +4,13 @@ using UnityEngine;
 
 public abstract class Limb : MonoBehaviour
 {
-    public abstract void perfomAttack(Transform target, float actionTime);
-    public abstract void backToIdle(float actionTime);
+    public abstract void perfomAttack(Transform target);
+    public abstract void backToIdle();
+
+    protected float MOVE_LIMB_SPEED = 5;
+    protected float MOVE_RADIUS = 0.5f;
 
     public Transform handle;
-    public Transform secondLimbPart;
 
     protected Vector3 idleLocalPositionHandle;
 
@@ -31,9 +33,9 @@ public abstract class Limb : MonoBehaviour
             if (isAttacking)
             {
                 attackTiming += Time.deltaTime;
-                if (attackTiming < attackDuration)
+                if (attackTiming < attackDuration) // or touch something
                 {
-                    perfomAttack(target, attackDuration);
+                    perfomAttack(target);
                 }
                 else
                 {
@@ -43,7 +45,7 @@ public abstract class Limb : MonoBehaviour
             }
             else
             {
-                backToIdle(attackDuration);
+                backToIdle();
             }
         }
     }
