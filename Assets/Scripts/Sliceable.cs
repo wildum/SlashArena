@@ -20,6 +20,9 @@ public class Sliceable : MonoBehaviour
     [SerializeField]
     private bool _smoothVertices = false;
 
+    [SerializeField]
+    private int _scaleMultiplier = 1;
+
     public bool IsSolid
     {
         get
@@ -29,6 +32,18 @@ public class Sliceable : MonoBehaviour
         set
         {
             _isSolid = value;
+        }
+    }
+
+    public int ScaleMultiplier
+    {
+        get
+        {
+            return _scaleMultiplier;
+        }
+        set
+        {
+            _scaleMultiplier = value;
         }
     }
 

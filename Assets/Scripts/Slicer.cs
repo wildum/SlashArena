@@ -68,7 +68,9 @@ namespace Assets.Scripts
 
             meshGameObject.GetComponent<MeshRenderer>().materials = originalMaterial;
 
-            meshGameObject.transform.localScale = originalObject.transform.localScale;
+            Debug.Log(sliceable.ScaleMultiplier);
+            meshGameObject.transform.localScale = originalObject.transform.localScale * originalSliceable.ScaleMultiplier;
+            Debug.Log(meshGameObject.transform.localScale);
             meshGameObject.transform.rotation = originalObject.transform.rotation;
             meshGameObject.transform.position = originalObject.transform.position;
 
