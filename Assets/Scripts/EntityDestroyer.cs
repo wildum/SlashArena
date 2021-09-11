@@ -30,12 +30,6 @@ public class EntityDestroyer : MonoBehaviour
             rg.useGravity = true;
             rg.isKinematic = false;
         }
-
-        CharacterJoint[] characterJoints = gameObject.GetComponents<CharacterJoint>();
-        foreach (CharacterJoint c in characterJoints)
-        {
-            Destroy(c);
-        }
     }
 
     IEnumerator fadeOut()
