@@ -72,7 +72,7 @@ public class BodyLimbsMonitoring : MonoBehaviour
             destroyBodyPart(foot);
             legAlive = false;
         }
-        else if (lowerBack)
+        else if (lowerBack == null)
         {
             destroyBodyPart(pelvis);
             destroyBodyPart(upperLeg);
@@ -152,7 +152,7 @@ public class BodyLimbsMonitoring : MonoBehaviour
 
     bool checkAlive()
     {
-        return head == null || neck == null || (!leftLegAlive && !rightLegAlive && !leftArmAlive && !rightArmAlive);
+        return head != null && neck != null && (leftLegAlive || rightLegAlive || leftArmAlive || rightArmAlive);
     }
 
     void destroyAllBody()

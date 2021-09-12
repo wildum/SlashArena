@@ -905,6 +905,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 903890081599432700, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1475742974}
     - target: {fileID: 3085995404476204146, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
         type: 3}
       propertyPath: m_RootOrder
@@ -965,6 +970,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 6050457455421516366, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 1475742974}
+    - target: {fileID: 8691347784074144136, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 1475742974}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77dbfc6fd3493904fa48fd1c3e029f77, type: 3}
 --- !u!1 &1311210848
