@@ -58,8 +58,8 @@ public class BodyLimbsMonitoring : MonoBehaviour
         List<GameObject> gs = new List<GameObject>();
         if (handLeft != null)  gs.Add(handLeft);
         if (handRight != null) gs.Add(handRight);
-        if (footLeft != null)  gs.Add(footLeft);
-        if (footRight != null) gs.Add(footRight);
+        if (footLeft != null && canWalk())  gs.Add(footLeft);
+        if (footRight != null && canWalk()) gs.Add(footRight);
 
         float dist = float.MaxValue;
         GameObject best = null;
