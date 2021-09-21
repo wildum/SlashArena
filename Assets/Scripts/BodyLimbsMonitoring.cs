@@ -10,13 +10,11 @@ public class BodyLimbsMonitoring : MonoBehaviour
     public GameObject shoulderRight;
     public GameObject upperArmRight;
     public GameObject lowerArmRight;
-    public GameObject wristRight;
     public GameObject handRight;
     public GameObject neckLeft;
     public GameObject shoulderLeft;
     public GameObject upperArmLeft;
     public GameObject lowerArmLeft;
-    public GameObject wristLeft;
     public GameObject handLeft;
     public GameObject upperBack;
     public GameObject lowerBack;
@@ -42,8 +40,8 @@ public class BodyLimbsMonitoring : MonoBehaviour
         {
             if (checkAlive())
             {
-                rightArmAlive = checkArmAlive(neckRight, shoulderRight, upperArmRight, lowerArmRight, wristRight, handRight);
-                leftArmAlive = checkArmAlive(neckLeft, shoulderLeft, upperArmLeft, lowerArmLeft, wristLeft, handLeft);
+                rightArmAlive = checkArmAlive(neckRight, shoulderRight, upperArmRight, lowerArmRight, handRight);
+                leftArmAlive = checkArmAlive(neckLeft, shoulderLeft, upperArmLeft, lowerArmLeft, handLeft);
                 rightLegAlive = checkLegAlive(pelvisRight, upperLegRight, lowerLegRight, footRight);
                 leftLegAlive = checkLegAlive(pelvisLeft, upperLegLeft, lowerLegLeft, footLeft);
             }
@@ -53,6 +51,28 @@ public class BodyLimbsMonitoring : MonoBehaviour
                 destroyAllBody();
             }
         }
+    }
+
+    public GameObject getClosestPartFromTarget(Transform target)
+    {
+        List<GameObject> gs = new List<GameObject>();
+        if (handLeft != null)  gs.Add(handLeft);
+        if (handRight != null) gs.Add(handRight);
+        if (footLeft != null)  gs.Add(footLeft);
+        if (footRight != null) gs.Add(footRight);
+
+        float dist = float.MaxValue;
+        GameObject best = null;
+        foreach (GameObject g in gs)
+        {
+            float d = Vector3.Distance(g.transform.position, target.position);
+            if (d < dist)
+            {
+                dist = d;
+                best = g;
+            }
+        }
+        return best;
     }
 
     public bool canWalk()
@@ -105,7 +125,7 @@ public class BodyLimbsMonitoring : MonoBehaviour
         return legAlive;
     }
 
-    bool checkArmAlive(GameObject neckSide, GameObject shoulder, GameObject upperArm, GameObject lowerArm, GameObject wrist, GameObject hand)
+    bool checkArmAlive(GameObject neckSide, GameObject shoulder, GameObject upperArm, GameObject lowerArm, GameObject hand)
     {
         bool armAlive = true;
         if (neckSide == null)
@@ -113,7 +133,6 @@ public class BodyLimbsMonitoring : MonoBehaviour
             destroyBodyPart(shoulder);
             destroyBodyPart(upperArm);
             destroyBodyPart(lowerArm);
-            destroyBodyPart(wrist);
             destroyBodyPart(hand);
             armAlive = false;
         }
@@ -121,24 +140,16 @@ public class BodyLimbsMonitoring : MonoBehaviour
         {
             destroyBodyPart(upperArm);
             destroyBodyPart(lowerArm);
-            destroyBodyPart(wrist);
             destroyBodyPart(hand);
             armAlive = false;
         }
         else if (upperArm == null)
         {
             destroyBodyPart(lowerArm);
-            destroyBodyPart(wrist);
             destroyBodyPart(hand);
             armAlive = false;
         }
         else if (lowerArm == null)
-        {
-            destroyBodyPart(wrist);
-            destroyBodyPart(hand);
-            armAlive = false;
-        }
-        else if (wrist == null)
         {
             destroyBodyPart(hand);
             armAlive = false;
@@ -163,13 +174,11 @@ public class BodyLimbsMonitoring : MonoBehaviour
         destroyBodyPart(shoulderRight);
         destroyBodyPart(upperArmRight);
         destroyBodyPart(lowerArmRight);
-        destroyBodyPart(wristRight);
         destroyBodyPart(handRight);
         destroyBodyPart(neckLeft);
         destroyBodyPart(shoulderLeft);
         destroyBodyPart(upperArmLeft);
         destroyBodyPart(lowerArmLeft);
-        destroyBodyPart(wristLeft);
         destroyBodyPart(handLeft);
         destroyBodyPart(upperBack);
         destroyBodyPart(lowerBack);
