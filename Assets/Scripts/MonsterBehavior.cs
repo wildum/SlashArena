@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class NewMonsterBehavior : MonoBehaviour
+public enum MonsterState
+{
+    MOVING, ATTACKING
+}
+
+public class MonsterBehavior : MonoBehaviour
 {
     const float ATTACK_RANGE = 6;
     const float ATTACK_ANGLE = 30;

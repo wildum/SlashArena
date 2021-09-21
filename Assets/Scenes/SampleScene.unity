@@ -961,6 +961,21 @@ PrefabInstance:
       propertyPath: rightPunchTarget
       value: 
       objectReference: {fileID: 1339832429}
+    - target: {fileID: 2757049120873600190, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1475742974}
+    - target: {fileID: 2757049120873600190, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: leftPunchTarget
+      value: 
+      objectReference: {fileID: 266380358}
+    - target: {fileID: 2757049120873600190, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: rightPunchTarget
+      value: 
+      objectReference: {fileID: 1339832429}
     - target: {fileID: 3085995404476204146, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
         type: 3}
       propertyPath: m_RootOrder
