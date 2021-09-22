@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public enum MonsterState
-{
-    MOVING, ATTACKING
-}
-
 public class MonsterBehavior : MonoBehaviour
 {
-    const float ATTACK_RANGE = 6;
+    const float ATTACK_RANGE = 4.5f;
     const float ATTACK_ANGLE = 30;
     const float MOVE_ANGLE = 10;
-    const float MOVE_SPEED = 4;
+    const float MOVE_SPEED = 6;
     const float ROTATION_SPEED = 1f;
-    const float PUNCH_SPEED = 1.0f;
+    const float PUNCH_SPEED = 1.5f;
 
     private enum RigAnimMode
     {
@@ -24,11 +19,12 @@ public class MonsterBehavior : MonoBehaviour
         dec
     }
 
+    bool isWalking = true;
+
     public Transform target;
+    public static Animator animator;
 
     private BodyLimbsMonitoring bodyLimbsMonitoring;
-    private MonsterState state = MonsterState.MOVING;
-    private float timeAttack = 0;
 
     public ChainIKConstraint leftHand;
     public Transform leftPunchTarget = null;
@@ -49,6 +45,7 @@ public class MonsterBehavior : MonoBehaviour
     void Start()
     {
         bodyLimbsMonitoring = GetComponent<BodyLimbsMonitoring>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -59,6 +56,7 @@ public class MonsterBehavior : MonoBehaviour
             {
                 if (targetInRange())
                 {
+                    enableWalking(false);
                     rotate();
                     attack();
                 }
@@ -79,6 +77,22 @@ public class MonsterBehavior : MonoBehaviour
         rightFoot.weight = updateHitAnimation(rightFoot.weight, ref rightFootRigAnim);
     }
 
+    void enableWalking(bool active)
+    {
+        if (active && !isWalking)
+        {
+            isWalking = true;
+            animator.SetBool("Walk", true);
+            animator.SetBool("Attack", false);
+        }
+        else if (!active && isWalking)
+        {
+            isWalking = false;
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack", true);
+        }
+    }
+
     float updateHitAnimation(float weight, ref RigAnimMode mode)
     {
         switch (mode)
@@ -93,7 +107,7 @@ public class MonsterBehavior : MonoBehaviour
                 break;
             case RigAnimMode.dec:
                 weight = Mathf.Lerp(weight, 0, PUNCH_SPEED * Time.deltaTime);
-                if (weight > 0.1)
+                if (weight < 0.1)
                 {
                     weight = 0;
                     mode = RigAnimMode.off;
@@ -113,9 +127,13 @@ public class MonsterBehavior : MonoBehaviour
         float angle = Vector3.Angle(direction, transform.forward);
         if (angle < MOVE_ANGLE && getDistanceWithTarget() > ATTACK_RANGE)
         {
+            enableWalking(true);
             this.transform.Translate(0,0,MOVE_SPEED*Time.deltaTime);
         }
-        state = MonsterState.MOVING;
+        else
+        {
+            enableWalking(false);
+        }
     }
 
     void rotate()
@@ -145,7 +163,6 @@ public class MonsterBehavior : MonoBehaviour
 
     void attack()
     {
-        state = MonsterState.ATTACKING;
         GameObject g = bodyLimbsMonitoring.getClosestPartFromTarget(target);
         if (g != null)
         {

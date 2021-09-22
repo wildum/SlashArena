@@ -1076,6 +1076,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 3085995404485733292, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1d0094e6c62c2e04e9ce3aa80020c8e9, type: 2}
     - target: {fileID: 4810144034831046070, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
         type: 3}
       propertyPath: m_Effectors.Array.size

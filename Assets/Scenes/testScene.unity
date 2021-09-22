@@ -150,13 +150,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648732292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.895, y: 6.146, z: -0.023}
+  m_LocalRotation: {x: 0.3944725, y: 0.41527972, z: -0.6119457, w: 0.545396}
+  m_LocalPosition: {x: -0.06409638, y: 0.0036028207, z: 0.009498101}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 69.809006, y: -4.9540005, z: -100.04001}
 --- !u!1 &1389138169
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389138169}
   m_LocalRotation: {x: -0, y: 0.8951175, z: -0, w: 0.44583035}
-  m_LocalPosition: {x: -7.63, y: 4.51, z: 4.51}
+  m_LocalPosition: {x: -7.63, y: 9.35, z: 27.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -327,7 +327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497428109}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.404, y: 2.19, z: 3.73}
+  m_LocalPosition: {x: -1.32, y: 9.71, z: 25.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -356,13 +356,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557601646}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.789, y: 5.9400005, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.584579, y: 0.58002836, z: -0.41305402, w: 0.38887116}
+  m_LocalPosition: {x: -0.064148895, y: 0.0035754829, z: 0.009473417}
+  m_LocalScale: {x: 0.03, y: 0.1700001, z: 0.07}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 69.038, y: 185.10199, z: 93.95801}
 --- !u!1001 &2007903454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 1d0094e6c62c2e04e9ce3aa80020c8e9, type: 2}
     - target: {fileID: 3377258364613365344, guid: 77dbfc6fd3493904fa48fd1c3e029f77,
         type: 3}
       propertyPath: m_Data.m_Target
