@@ -130,50 +130,37 @@ public class BodyLimbsMonitoring : MonoBehaviour
 
     void FixedUpdate()
     {
-        head.transform.localPosition = poshead;
-        neck.transform.localPosition = posneck;
-        neckRight.transform.localPosition = posneckRight;
-        shoulderRight.transform.localPosition = posshoulderRight;
-        upperArmRight.transform.localPosition = posupperArmRight;
-        lowerArmRight.transform.localPosition = poslowerArmRight;
-        handRight.transform.localPosition = poshandRight;
-        neckLeft.transform.localPosition = posneckLeft;
-        shoulderLeft.transform.localPosition = posshoulderLeft;
-        upperArmLeft.transform.localPosition = posupperArmLeft;
-        lowerArmLeft.transform.localPosition = poslowerArmLeft;
-        handLeft.transform.localPosition = poshandLeft;
-        upperBack.transform.localPosition = posupperBack;
-        lowerBack.transform.localPosition = poslowerBack;
-        pelvisLeft.transform.localPosition = pospelvisLeft;
-        upperLegLeft.transform.localPosition = posupperLegLeft;
-        lowerLegLeft.transform.localPosition = poslowerLegLeft;
-        footLeft.transform.localPosition = posfootLeft;
-        pelvisRight.transform.localPosition = pospelvisRight;
-        upperLegRight.transform.localPosition = posupperLegRight;
-        lowerLegRight.transform.localPosition = poslowerLegRight;
-        footRight.transform.localPosition = posfootRight;
-        head.transform.localRotation = rotahead;
-        neck.transform.localRotation = rotaneck;
-        neckRight.transform.localRotation = rotaneckRight;
-        shoulderRight.transform.localRotation = rotashoulderRight;
-        upperArmRight.transform.localRotation = rotaupperArmRight;
-        lowerArmRight.transform.localRotation = rotalowerArmRight;
-        handRight.transform.localRotation = rotahandRight;
-        neckLeft.transform.localRotation = rotaneckLeft;
-        shoulderLeft.transform.localRotation = rotashoulderLeft;
-        upperArmLeft.transform.localRotation = rotaupperArmLeft;
-        lowerArmLeft.transform.localRotation = rotalowerArmLeft;
-        handLeft.transform.localRotation = rotahandLeft;
-        upperBack.transform.localRotation = rotaupperBack;
-        lowerBack.transform.localRotation = rotalowerBack;
-        pelvisLeft.transform.localRotation = rotapelvisLeft;
-        upperLegLeft.transform.localRotation = rotaupperLegLeft;
-        lowerLegLeft.transform.localRotation = rotalowerLegLeft;
-        footLeft.transform.localRotation = rotafootLeft;
-        pelvisRight.transform.localRotation = rotapelvisRight;
-        upperLegRight.transform.localRotation = rotaupperLegRight;
-        lowerLegRight.transform.localRotation = rotalowerLegRight;
-        footRight.transform.localRotation = rotafootRight;
+        updateLocalTransform(head, poshead, rotahead);
+        updateLocalTransform(neck, posneck, rotaneck);
+        updateLocalTransform(neckLeft, posneckLeft, rotaneckLeft);
+        updateLocalTransform(neckRight, posneckRight, rotaneckRight);
+        updateLocalTransform(shoulderRight, posshoulderRight, rotashoulderRight);
+        updateLocalTransform(shoulderLeft, posshoulderLeft, rotashoulderLeft);
+        updateLocalTransform(upperArmLeft, posupperArmLeft, rotaupperArmLeft);
+        updateLocalTransform(upperArmRight, posupperArmRight, rotaupperArmRight);
+        updateLocalTransform(lowerArmLeft, poslowerArmLeft, rotalowerArmLeft);
+        updateLocalTransform(lowerArmRight, poslowerArmRight, rotalowerArmRight);
+        updateLocalTransform(handRight, poshandRight, rotahandRight);
+        updateLocalTransform(handLeft, poshandLeft, rotahandLeft);
+        updateLocalTransform(upperBack, posupperBack, rotaupperBack);
+        updateLocalTransform(lowerBack, poslowerBack, rotalowerBack);
+        updateLocalTransform(pelvisLeft, pospelvisLeft, rotapelvisLeft);
+        updateLocalTransform(upperLegLeft, posupperLegLeft, rotaupperLegLeft);
+        updateLocalTransform(lowerLegLeft, poslowerLegLeft, rotalowerLegLeft);
+        updateLocalTransform(footLeft, posfootLeft, rotafootLeft);
+        updateLocalTransform(pelvisRight, pospelvisRight, rotapelvisRight);
+        updateLocalTransform(upperLegRight, posupperLegRight, rotaupperLegRight);
+        updateLocalTransform(lowerLegRight, poslowerLegRight, rotalowerLegRight);
+        updateLocalTransform(footRight, posfootRight, rotafootRight);
+    }
+
+    void updateLocalTransform(GameObject g, Vector3 pos, Quaternion rota)
+    {
+        if (g != null && g.GetComponent<EntityDestroyer>() == null)
+        {
+            g.transform.localPosition = pos;
+            g.transform.localRotation = rota;
+        }
     }
 
     void Update()

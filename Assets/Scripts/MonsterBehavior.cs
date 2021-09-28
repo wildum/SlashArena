@@ -125,7 +125,7 @@ public class MonsterBehavior : MonoBehaviour
         Vector3 direction = target.position - transform.position;
         direction.y = 0;
         float angle = Vector3.Angle(direction, transform.forward);
-        if (angle < MOVE_ANGLE && getDistanceWithTarget() > ATTACK_RANGE)
+        if (bodyLimbsMonitoring.canWalk() && angle < MOVE_ANGLE && getDistanceWithTarget() > ATTACK_RANGE)
         {
             enableWalking(true);
             this.transform.Translate(0,0,MOVE_SPEED*Time.deltaTime);
