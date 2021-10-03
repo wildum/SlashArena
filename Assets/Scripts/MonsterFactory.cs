@@ -33,13 +33,5 @@ public class MonsterFactory : MonoBehaviour
     private void assignTargets(MonsterBehavior m)
     {
         m.target = target;
-        // m.leftKickTarget = new GameObject("leftKickTarget").transform;
-        // m.leftFoot.data.target = m.leftKickTarget;
-        // m.rightKickTarget = new GameObject("rightKickTarget").transform;
-        // m.rightFoot.data.target = m.rightKickTarget;
-        // m.leftPunchTarget = new GameObject("leftPunchTarget").transform;
-        // m.leftHand.data.target = m.leftPunchTarget;
-        // m.rightPunchTarget = new GameObject("rightPunchTarget").transform;
-        // m.rightHand.data.target = m.rightPunchTarget;
     }
 }
