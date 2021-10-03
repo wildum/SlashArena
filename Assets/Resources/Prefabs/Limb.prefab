@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4246984559661071688}
   - component: {fileID: 4743163272101181013}
   - component: {fileID: 2853175658304550298}
+  - component: {fileID: 7744966244241906737}
   m_Layer: 8
   m_Name: Limb
   m_TagString: Untagged
@@ -192,3 +193,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7744966244241906737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5890572628480653060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7085f41bd8dff7540a33bf9298fa763d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: {fileID: 2100000, guid: ed23863af802c224589725b5913bf8d9, type: 2}
+  critical: {fileID: 2100000, guid: f80887809a186794d9af01a374370fdf, type: 2}
+  weapon: {fileID: 2100000, guid: bc0f08161b628974197d4df7183cd174, type: 2}

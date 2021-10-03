@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8492348010795585038}
   - component: {fileID: 2409065695213311652}
   - component: {fileID: 990214853440136881}
+  - component: {fileID: 1255972555946198209}
   m_Layer: 8
   m_Name: Feet
   m_TagString: Untagged
@@ -131,6 +132,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1.0000001, z: 1}
   m_Center: {x: -0.000000026077032, y: 0.000000029802322, z: 0}
+--- !u!114 &1255972555946198209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3468046441643479033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7085f41bd8dff7540a33bf9298fa763d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: {fileID: 2100000, guid: ed23863af802c224589725b5913bf8d9, type: 2}
+  critical: {fileID: 2100000, guid: f80887809a186794d9af01a374370fdf, type: 2}
+  weapon: {fileID: 2100000, guid: bc0f08161b628974197d4df7183cd174, type: 2}
 --- !u!1 &4938989397935096208
 GameObject:
   m_ObjectHideFlags: 0

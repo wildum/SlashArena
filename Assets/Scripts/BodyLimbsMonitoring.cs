@@ -80,6 +80,11 @@ public class BodyLimbsMonitoring : MonoBehaviour
     private bool leftArmAlive = true;
     private bool rightArmAlive = true;
 
+    private List<GameObject> m_criticals = new List<GameObject>();
+    private int m_criticalInitSize = 0;
+    private List<GameObject> m_armors = new List<GameObject>();
+    private List<GameObject> m_weapons = new List<GameObject>();
+
     void Start()
     {
         poshead = head.transform.localPosition;
@@ -163,6 +168,76 @@ public class BodyLimbsMonitoring : MonoBehaviour
         }
     }
 
+    public void setBodyPartsType(List<BodyPartName> criticals, List<BodyPartName> armors, List<BodyPartName> weapons)
+    {
+        addBodyParts(criticals, m_criticals, BodyPartType.Critical);
+        addBodyParts(weapons, m_weapons, BodyPartType.Weapon);
+        addBodyParts(armors, m_armors, BodyPartType.Armor);
+        m_criticalInitSize = m_criticals.Count;
+    }
+
+    void addBodyParts(List<BodyPartName> names, List<GameObject> mlist, BodyPartType type)
+    {
+        foreach (var bodyPartName in names)
+        {
+            GameObject part = getBodyPartByEnum(bodyPartName);
+            part.GetComponent<BodyPart>().setType(type);
+            mlist.Add(part);
+        }
+    }
+
+    GameObject getBodyPartByEnum(BodyPartName name)
+    {
+        switch (name)
+        {
+            case BodyPartName.head:
+                return head;
+            case BodyPartName.neck:
+                return neck;
+            case BodyPartName.neckRight:
+                return neckRight;
+            case BodyPartName.shoulderRight:
+                return shoulderRight;
+            case BodyPartName.upperArmRight:
+                return upperArmRight;
+            case BodyPartName.lowerArmRight:
+                return lowerArmRight;
+            case BodyPartName.handRight:
+                return handRight;
+            case BodyPartName.neckLeft:
+                return neckLeft;
+            case BodyPartName.shoulderLeft:
+                return shoulderLeft;
+            case BodyPartName.upperArmLeft:
+                return upperArmLeft;
+            case BodyPartName.lowerArmLeft:
+                return lowerArmLeft;
+            case BodyPartName.handLeft:
+                return handLeft;
+            case BodyPartName.upperBack:
+                return upperBack;
+            case BodyPartName.lowerBack:
+                return lowerBack;
+            case BodyPartName.pelvisLeft:
+                return pelvisLeft;
+            case BodyPartName.upperLegLeft:
+                return upperLegLeft;
+            case BodyPartName.lowerLegLeft:
+                return lowerLegLeft;
+            case BodyPartName.footLeft:
+                return footLeft;
+            case BodyPartName.pelvisRight:
+                return pelvisRight;
+            case BodyPartName.upperLegRight:
+                return upperLegRight;
+            case BodyPartName.lowerLegRight:
+                return lowerLegRight;
+            case BodyPartName.footRight:
+                return footRight;
+        }
+        return null;
+    }
+
     void Update()
     {
         if (alive)
@@ -180,6 +255,11 @@ public class BodyLimbsMonitoring : MonoBehaviour
                 destroyAllBody();
             }
         }
+    }
+
+    bool checkAlive()
+    {
+        return m_weapons.Count != 0 && m_criticals.Count == m_criticalInitSize;
     }
 
     public GameObject getClosestPartFromTarget(Transform target)
@@ -290,11 +370,6 @@ public class BodyLimbsMonitoring : MonoBehaviour
         return armAlive;
     }
 
-    bool checkAlive()
-    {
-        return head != null && neck != null && (leftLegAlive || rightLegAlive || leftArmAlive || rightArmAlive);
-    }
-
     void destroyAllBody()
     {
         destroyBodyPart(head);
@@ -325,7 +400,36 @@ public class BodyLimbsMonitoring : MonoBehaviour
     {
         if (part != null && part.GetComponent<EntityDestroyer>() == null)
             part.AddComponent<EntityDestroyer>();
+        m_armors.Remove(part);
+        m_criticals.Remove(part);
+        m_weapons.Remove(part);
     }
 
     public bool Alive { get { return alive; }}
+}
+
+public enum BodyPartName
+{
+    head,
+    neck,
+    neckRight,
+    shoulderRight,
+    upperArmRight,
+    lowerArmRight,
+    handRight,
+    neckLeft,
+    shoulderLeft,
+    upperArmLeft,
+    lowerArmLeft,
+    handLeft,
+    upperBack,
+    lowerBack,
+    pelvisLeft,
+    upperLegLeft,
+    lowerLegLeft,
+    footLeft,
+    pelvisRight,
+    upperLegRight,
+    lowerLegRight,
+    footRight
 }

@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2803379354318774359}
   - component: {fileID: 1984637438151554963}
   - component: {fileID: 2286761995046344173}
+  - component: {fileID: 1769548608808295872}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -191,3 +192,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1769548608808295872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689950168800035286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7085f41bd8dff7540a33bf9298fa763d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: {fileID: 2100000, guid: ed23863af802c224589725b5913bf8d9, type: 2}
+  critical: {fileID: 2100000, guid: f80887809a186794d9af01a374370fdf, type: 2}
+  weapon: {fileID: 2100000, guid: bc0f08161b628974197d4df7183cd174, type: 2}
