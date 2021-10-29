@@ -66,6 +66,18 @@ public class MonsterBehavior : MonoBehaviour
                     move();
                 }
             }
+
+            if (!bodyLimbsMonitoring.canWalk())
+            {
+                leftFoot.weight = 1.0f;
+                rightFoot.weight = 1.0f;
+                if (leftKickTarget != null)
+                    leftKickTarget.position = new Vector3(transform.position.x, 0, transform.position.z);
+                if (rightKickTarget != null)
+                    rightKickTarget.position = new Vector3(transform.position.x, 0, transform.position.z);
+                leftFootRigAnim = RigAnimMode.off;
+                rightFootRigAnim = RigAnimMode.off;
+            }
         }
     }
 

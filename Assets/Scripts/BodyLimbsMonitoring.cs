@@ -398,11 +398,14 @@ public class BodyLimbsMonitoring : MonoBehaviour
 
     void destroyBodyPart(GameObject part)
     {
+        m_armors.Remove(part);
+        m_armors.RemoveAll(o => o == null);
+        m_criticals.Remove(part);
+        m_criticals.RemoveAll(o => o == null);
+        m_weapons.Remove(part);
+        m_weapons.RemoveAll(o => o == null);
         if (part != null && part.GetComponent<EntityDestroyer>() == null)
             part.AddComponent<EntityDestroyer>();
-        m_armors.Remove(part);
-        m_criticals.Remove(part);
-        m_weapons.Remove(part);
     }
 
     public bool Alive { get { return alive; }}
