@@ -259,7 +259,7 @@ public class BodyLimbsMonitoring : MonoBehaviour
 
     bool checkAlive()
     {
-        return m_weapons.Count != 0 && m_criticals.Count == m_criticalInitSize;
+        return m_weapons.Count != 0 && m_criticals.Count == m_criticalInitSize && (leftLegAlive || rightLegAlive);
     }
 
     public GameObject getClosestPartFromTarget(Transform target)
