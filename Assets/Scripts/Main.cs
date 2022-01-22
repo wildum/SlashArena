@@ -5,9 +5,12 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     public MonsterFactory monsterFactory;
+    public MenuController menuController;
 
     void Start()
     {
-        monsterFactory.createMonster(MonsterType.Default);
+        //monsterFactory.createMonster(MonsterType.Default);
+        menuController.createMusicList();
+        menuController.displayMusicList();
     }
 }

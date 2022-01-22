@@ -144,7 +144,14 @@ public class Sword : MonoBehaviour
 
         GameObject[] slices = Slicer.Slice(plane, other.gameObject);
 
-        if (other.gameObject.tag == "Limb")
+        if (other.gameObject.tag == "Selectable")
+        {
+            other.gameObject.transform.parent.GetComponent<Selectable>().slice();
+            slices[0].AddComponent<EntityDestroyer>();
+            slices[1].AddComponent<EntityDestroyer>();
+            Destroy(other.gameObject.transform.parent.gameObject);
+        }
+        else if (other.gameObject.tag == "Limb")
         {
             other.gameObject.GetComponent<MeshFilter>().mesh = slices[1].GetComponent<MeshFilter>().mesh;
             Destroy(slices[1]);
