@@ -146,10 +146,13 @@ public class Sword : MonoBehaviour
 
         if (other.gameObject.tag == "Selectable")
         {
-            other.gameObject.transform.parent.GetComponent<Selectable>().slice();
+            if (other.gameObject.transform.parent != null)
+            {
+                other.gameObject.transform.parent.GetComponent<Selectable>().slice();
+                Destroy(other.gameObject.transform.parent.gameObject);
+            }
             slices[0].AddComponent<EntityDestroyer>();
             slices[1].AddComponent<EntityDestroyer>();
-            Destroy(other.gameObject.transform.parent.gameObject);
         }
         else if (other.gameObject.tag == "Limb")
         {

@@ -8,7 +8,11 @@ public class MenuController : MonoBehaviour
 
     public void createMusicList()
     {
-        musicList.addSelectable("This is a test");
+        musicList.addSelectable("First");
+        musicList.addSelectable("Second");
+        musicList.addSelectable("Third");
+        musicList.addSelectable("Fourth");
+        musicList.addSelectable("Fifth");
     }
 
     public void displayMusicList()

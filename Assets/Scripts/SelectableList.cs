@@ -11,15 +11,10 @@ public class SelectableList : MonoBehaviour
     private Selectable current;
 
     private Vector3 currentPos = new Vector3(0, 4, 1.5f);
-    private Vector3 nextPos = new Vector3(0, 4.5f, 1.5f);
-    private Vector3 previousPos = new Vector3(0, 3.5f, 1.5f);
+    private Vector3 nextPos = new Vector3(0, 5, 1.8f);
+    private Vector3 previousPos = new Vector3(0, 3, 1.8f);
 
     private bool switching = false;
-    private bool fadingOut = false;
-    private bool fadingIn = false;
-
-    private Selectable fadingOutTarget;
-    private Selectable fadingInTarget;
 
     private const float SPEED_SWITCH = 1.0f;
     private const float SWITCH_PRECISION = 1.0f;
@@ -28,8 +23,8 @@ public class SelectableList : MonoBehaviour
     private void Start()
     {
         GameEvents.current.onSelectableSelected += onSelectableSelected;
-        GameEvents.current.onScrollDown += onScrollUp;
-        GameEvents.current.onScrollUp += onScrollDown;
+        GameEvents.current.onScrollDown += onScrollDown;
+        GameEvents.current.onScrollUp += onScrollUp;
     }
 
     private void Update()
@@ -48,31 +43,14 @@ public class SelectableList : MonoBehaviour
                 switching = false;
             }
         }
+    }
 
-        if (fadingOut && fadingOutTarget != null)
+    public void cyclicLink()
+    {
+        if (selectables.Count > 2)
         {
-            Color c = fadingOutTarget.gameObject.GetComponent<Renderer>().material.color;
-            c.a = Mathf.Lerp(c.a, 0, SPEED_FADE * Time.deltaTime);
-            fadingOutTarget.gameObject.GetComponent<Renderer>().material.color = c;
-
-            if (c.a == 0)
-            {
-                fadingOutTarget.gameObject.SetActive(false);
-                fadingOut = false;
-            }
-        }
-
-        if (fadingIn && fadingInTarget != null)
-        {
-            Color c = fadingInTarget.gameObject.GetComponent<Renderer>().material.color;
-            c.a = Mathf.Lerp(c.a, 0, SPEED_FADE * Time.deltaTime);
-            fadingInTarget.gameObject.GetComponent<Renderer>().material.color = c;
-
-            if (c.a == 1.0f)
-            {
-                fadingInTarget.gameObject.SetActive(false);
-                fadingIn = false;
-            }
+            selectables[0].Previous = selectables[selectables.Count - 1];
+            selectables[selectables.Count - 1].Next = selectables[0];
         }
     }
 
@@ -82,6 +60,7 @@ public class SelectableList : MonoBehaviour
             return;
         if (current == null)
             current = selectables[0];
+        cyclicLink();
         gameObject.SetActive(true);
         displaySelectables();
     }
@@ -114,6 +93,7 @@ public class SelectableList : MonoBehaviour
     {
         GameObject g = Instantiate(selectable, nextPos, Quaternion.identity);
         Selectable s = g.GetComponent<Selectable>();
+        s.Text = text;
         if (selectables.Count == 0)
             current = s;
         selectables.Add(s);
@@ -127,6 +107,7 @@ public class SelectableList : MonoBehaviour
 
     public void onScrollUp()
     {
+        Debug.Log("UP");
         if (current.Next != null)
         {
             current = current.Next;
@@ -136,6 +117,7 @@ public class SelectableList : MonoBehaviour
 
     public void onScrollDown()
     {
+        Debug.Log("DOWN");
         if (current.Previous != null)
         {
             current = current.Previous;
@@ -149,13 +131,10 @@ public class SelectableList : MonoBehaviour
         if (direction == ScrollDirection.Up)
         {
             current.gameObject.transform.position = nextPos;
-            setAlpha(current, 1.0f);
             if (current.Next != null)
             {
-                current.Next.gameObject.SetActive(true);
+                current.Next.gameObject.SetActive(false);
                 current.Next.gameObject.transform.position = nextPos;
-                setAlpha(current.Next, 0.0f);
-                fadingInTarget = current.Next;
                 if (current.Next.Next != null)
                 {
                     current.Next.Next.gameObject.SetActive(false);
@@ -165,26 +144,20 @@ public class SelectableList : MonoBehaviour
             {
                 current.Previous.gameObject.SetActive(true);
                 current.Previous.gameObject.transform.position = currentPos;
-                setAlpha(current.Previous, 1.0f);
                 if (current.Previous.Previous != null)
                 {
                     current.Previous.Previous.gameObject.SetActive(true);
                     current.Previous.Previous.gameObject.transform.position = previousPos;
-                    setAlpha(current.Previous.Previous, 1.0f);
-                    fadingOutTarget = current.Previous.Previous;
                 }
             }
         }
         else
         {
             current.gameObject.transform.position = previousPos;
-            setAlpha(current, 1.0f);
             if (current.Previous != null)
             {
-                current.Previous.gameObject.SetActive(true);
+                current.Previous.gameObject.SetActive(false);
                 current.Previous.gameObject.transform.position = previousPos;
-                setAlpha(current.Previous, 0.0f);
-                fadingInTarget = current.Previous;
                 if (current.Previous.Previous != null)
                 {
                     current.Previous.Previous.gameObject.SetActive(false);
@@ -194,26 +167,14 @@ public class SelectableList : MonoBehaviour
             {
                 current.Next.gameObject.SetActive(true);
                 current.Next.gameObject.transform.position = currentPos;
-                setAlpha(current.Next, 1.0f);
                 if (current.Next.Next != null)
                 {
                     current.Next.Next.gameObject.SetActive(true);
                     current.Next.Next.gameObject.transform.position = nextPos;
-                    setAlpha(current.Next.Next, 1.0f);
-                    fadingOutTarget = current.Next.Next;
                 }
             }
         }
         switching = true;
-        fadingIn = true;
-        fadingOut = true;
-    }
-
-    private void setAlpha(Selectable s, float v)
-    {
-        Color c = s.gameObject.GetComponent<Renderer>().material.color;
-        c.a = v;
-        s.gameObject.GetComponent<Renderer>().material.color = c;
     }
 
     private void onSelectableSelected()

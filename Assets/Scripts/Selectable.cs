@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Selectable : MonoBehaviour
 {
-    public GameObject text;
+    public Text text;
     private Selectable previous;
     private Selectable next;
 
@@ -20,4 +21,5 @@ public class Selectable : MonoBehaviour
 
     public Selectable Previous { get {return previous;} set {previous = value;}}
     public Selectable Next { get {return next;} set {next = value;}}
+    public string Text { get {return text.text;} set {text.text = value;}}
 }

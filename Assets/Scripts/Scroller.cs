@@ -12,16 +12,14 @@ public class Scroller : MonoBehaviour
 {
     public ScrollDirection direction;
 
-    void OnCollisionEnter(Collision collisionInfo)
+    void OnTriggerEnter(Collider other)
     {
         if (direction == ScrollDirection.Up)
         {
-            Debug.Log("Scroll up");
             GameEvents.current.ScrollUp();
         }
         else
         {
-            Debug.Log("Scroll down");
             GameEvents.current.ScrollDown();
         }
     }
