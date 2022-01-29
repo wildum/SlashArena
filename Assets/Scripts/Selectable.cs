@@ -16,7 +16,7 @@ public class Selectable : MonoBehaviour
 
     public void slice()
     {
-        GameEvents.current.SelectableSelected();
+        GameEvents.current.SelectableSelected(text.text);
     }
 
     public Selectable Previous { get {return previous;} set {previous = value;}}

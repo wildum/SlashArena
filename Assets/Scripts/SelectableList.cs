@@ -16,13 +16,12 @@ public class SelectableList : MonoBehaviour
 
     private bool switching = false;
 
-    private const float SPEED_SWITCH = 1.0f;
-    private const float SWITCH_PRECISION = 1.0f;
+    private const float SPEED_SWITCH = 3.0f;
+    private const float SWITCH_PRECISION = 0.05f;
     private const float SPEED_FADE = 1.0f;
 
     private void Start()
     {
-        GameEvents.current.onSelectableSelected += onSelectableSelected;
         GameEvents.current.onScrollDown += onScrollDown;
         GameEvents.current.onScrollUp += onScrollUp;
     }
@@ -67,7 +66,10 @@ public class SelectableList : MonoBehaviour
 
     public void removeList()
     {
+        foreach(Selectable selectable in selectables)
+            Destroy(selectable.gameObject);
         gameObject.SetActive(false);
+        selectables.Clear();
     }
 
     private void displaySelectables()
@@ -133,7 +135,7 @@ public class SelectableList : MonoBehaviour
             current.gameObject.transform.position = nextPos;
             if (current.Next != null)
             {
-                current.Next.gameObject.SetActive(false);
+                current.Next.gameObject.SetActive(true);
                 current.Next.gameObject.transform.position = nextPos;
                 if (current.Next.Next != null)
                 {
@@ -146,7 +148,7 @@ public class SelectableList : MonoBehaviour
                 current.Previous.gameObject.transform.position = currentPos;
                 if (current.Previous.Previous != null)
                 {
-                    current.Previous.Previous.gameObject.SetActive(true);
+                    current.Previous.Previous.gameObject.SetActive(false);
                     current.Previous.Previous.gameObject.transform.position = previousPos;
                 }
             }
@@ -156,7 +158,7 @@ public class SelectableList : MonoBehaviour
             current.gameObject.transform.position = previousPos;
             if (current.Previous != null)
             {
-                current.Previous.gameObject.SetActive(false);
+                current.Previous.gameObject.SetActive(true);
                 current.Previous.gameObject.transform.position = previousPos;
                 if (current.Previous.Previous != null)
                 {
@@ -169,17 +171,12 @@ public class SelectableList : MonoBehaviour
                 current.Next.gameObject.transform.position = currentPos;
                 if (current.Next.Next != null)
                 {
-                    current.Next.Next.gameObject.SetActive(true);
+                    current.Next.Next.gameObject.SetActive(false);
                     current.Next.Next.gameObject.transform.position = nextPos;
                 }
             }
         }
         switching = true;
-    }
-
-    private void onSelectableSelected()
-    {
-        Debug.Log("selectable triggered");
     }
 
 }

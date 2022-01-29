@@ -12,12 +12,12 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event UnityAction onSelectableSelected;
-    public void SelectableSelected()
+    public event UnityAction<string> onSelectableSelected;
+    public void SelectableSelected(string text)
     {
         if (onSelectableSelected != null)
         {
-            onSelectableSelected();
+            onSelectableSelected(text);
         }
     }
 
