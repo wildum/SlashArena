@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    public MonsterFactory monsterFactory;
     public MenuController menuController;
 
     void Start()
     {
-        //monsterFactory.createMonster(MonsterType.Default);
+        menuController.createLevelList();
         menuController.createMusicList();
-        menuController.displayMusicList();
+        menuController.displayLevelsList();
     }
 }

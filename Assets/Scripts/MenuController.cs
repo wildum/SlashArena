@@ -5,18 +5,32 @@ using UnityEngine;
 public class MenuController : MonoBehaviour
 {
     public SelectableList musicList;
+    public SelectableList levelList;
     public GameObject player;
     public AudioClip toxicAvengers;
     public GameObject scrollerUp;
     public GameObject scrollerDown;
+    public MonsterFactory monsterFactory;
 
     private bool musicListDisplayed = false;
+    private bool levelsListDisplayed = false;
+
+    private string chosenLevel;
 
     private Dictionary<string, AudioClip> musics = new Dictionary<string, AudioClip>();
+    private Dictionary<string, Level> levels = new Dictionary<string, Level>();
 
     private void Start()
     {
         GameEvents.current.onSelectableSelected += onSelectableSelected;
+    }
+
+    public void createLevelList()
+    {
+        levels.Add("One simple monster", Levels.level1);
+
+        foreach(var level in levels)
+            levelList.addSelectable(level.Key);
     }
 
     public void createMusicList()
@@ -34,9 +48,15 @@ public class MenuController : MonoBehaviour
     public void displayMusicList()
     {
         musicList.displayList();
-        scrollerUp.SetActive(true);
-        scrollerDown.SetActive(true);
+        scrollersActivation(true);
         musicListDisplayed = true;
+    }
+
+    public void displayLevelsList()
+    {
+        levelList.displayList();
+        scrollersActivation(true);
+        levelsListDisplayed = true;
     }
 
     private void onSelectableSelected(string text)
@@ -50,8 +70,31 @@ public class MenuController : MonoBehaviour
                 playersHeadphones.Play();
             }
             musicList.removeList();
-            scrollerUp.SetActive(false);
-            scrollerDown.SetActive(false);
+            scrollersActivation(false);
+            musicListDisplayed = false;
+            loadLevel();
         }
+        else if (levelsListDisplayed)
+        {
+            chosenLevel = text;
+            levelList.removeList();
+            scrollersActivation(false);
+            musicListDisplayed = false;
+            displayMusicList();
+        }
+    }
+
+    private void loadLevel()
+    {
+        foreach (MonsterType type in levels[chosenLevel].types)
+        {
+            monsterFactory.createMonster(type);
+        }
+    }
+
+    private void scrollersActivation(bool activate)
+    {
+        scrollerUp.SetActive(activate);
+        scrollerDown.SetActive(activate);
     }
 }
