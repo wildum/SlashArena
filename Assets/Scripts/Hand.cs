@@ -28,12 +28,15 @@ public class Hand : MonoBehaviour
 
     private void Hook_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        Rigidbody rigidbody = hook.gameObject.GetComponent<Rigidbody>();
-        if (!hook.Sent)
-            rigidbody.AddForce(transform.forward * Hook.HOOK_SPEED, ForceMode.Force);
-        rigidbody.isKinematic = false;
-        hook.Sent = !hook.Sent;
-        hook.Hooked = false;
+        if (hook != null)
+        {
+            Rigidbody rigidbody = hook.gameObject.GetComponent<Rigidbody>();
+            if (!hook.Sent)
+                rigidbody.AddForce(transform.forward * Hook.HOOK_SPEED, ForceMode.Force);
+            rigidbody.isKinematic = false;
+            hook.Sent = !hook.Sent;
+            hook.Hooked = false;
+        }
     }
 
     void Update()

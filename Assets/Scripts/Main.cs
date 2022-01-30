@@ -8,8 +8,8 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-        menuController.createLevelList();
-        menuController.createMusicList();
+        menuController.initLists();
+        menuController.createSelectables();
         menuController.displayLevelsList();
     }
 }

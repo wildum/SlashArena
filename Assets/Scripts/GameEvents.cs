@@ -12,6 +12,15 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
+    public event UnityAction onMonsterDead;
+    public void MonsterDead()
+    {
+        if (onMonsterDead != null)
+        {
+            onMonsterDead();
+        }
+    }
+
     public event UnityAction<string> onSelectableSelected;
     public void SelectableSelected(string text)
     {

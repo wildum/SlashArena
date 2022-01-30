@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class MenuController : MonoBehaviour
     private bool musicListDisplayed = false;
     private bool levelsListDisplayed = false;
 
+    private Transform initialPlayerTransform;
+
     private string chosenLevel;
+
+    private int monsterCount = 0;
 
     private Dictionary<string, AudioClip> musics = new Dictionary<string, AudioClip>();
     private Dictionary<string, Level> levels = new Dictionary<string, Level>();
@@ -23,20 +28,39 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         GameEvents.current.onSelectableSelected += onSelectableSelected;
+        GameEvents.current.onMonsterDead += onMonsterDead;
     }
 
-    public void createLevelList()
+    public void initLists()
+    {
+        initLevelList();
+        initMusicList();
+    }
+
+    private void initLevelList()
     {
         levels.Add("One simple monster", Levels.level1);
+    }
 
+    private void initMusicList()
+    {
+        musics.Add("ToxicAvengers - MyOnlyChance", toxicAvengers);
+    }
+
+    public void createSelectables()
+    {
+        createLevelSelectables();
+        createMusicSelectables();
+    }
+
+    private void createLevelSelectables()
+    {
         foreach(var level in levels)
             levelList.addSelectable(level.Key);
     }
 
-    public void createMusicList()
+    private void createMusicSelectables()
     {
-        musics.Add("ToxicAvengers - MyOnlyChance", toxicAvengers);
-
         musicList.addSelectable("No music");
         foreach (var music in musics)
             musicList.addSelectable(music.Key);
@@ -89,6 +113,7 @@ public class MenuController : MonoBehaviour
         foreach (MonsterType type in levels[chosenLevel].types)
         {
             monsterFactory.createMonster(type);
+            monsterCount++;
         }
     }
 
@@ -96,5 +121,16 @@ public class MenuController : MonoBehaviour
     {
         scrollerUp.SetActive(activate);
         scrollerDown.SetActive(activate);
+    }
+
+    private void onMonsterDead()
+    {
+        monsterCount--;
+        if (monsterCount <= 0)
+        {
+            Debug.Log("Game is over");
+            Scene scene = SceneManager.GetActiveScene(); 
+            SceneManager.LoadScene(scene.name);
+        }
     }
 }

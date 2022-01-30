@@ -253,6 +253,7 @@ public class BodyLimbsMonitoring : MonoBehaviour
             {
                 alive = false;
                 destroyAllBody();
+                GameEvents.current.MonsterDead();
             }
         }
     }
